@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="16" tilewidth="16" tileheight="16">
+ <properties>
+  <property name="unity:scale" value="0.0625"/>
+ </properties>
+ <tileset firstgid="1" name="new-tiles" tilewidth="16" tileheight="16">
+  <image source="../images/new-tiles.png" trans="5e81a2" width="256" height="256"/>
+  <tile id="1">
+   <objectgroup draworder="index">
+    <object x="0" y="0">
+     <polyline points="0,0 16,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="2">
+   <objectgroup draworder="index">
+    <object x="0" y="0">
+     <polyline points="0,0 16,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="3">
+   <objectgroup draworder="index">
+    <object x="0" y="0">
+     <polyline points="0,0 16,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="unity:scale" value="0.0625"/>
+   </properties>
+   <objectgroup draworder="index">
+    <object x="0" y="0" width="16" height="16"/>
+   </objectgroup>
+  </tile>
+  <tile id="33">
+   <objectgroup draworder="index">
+    <object x="0" y="0" width="16" height="16"/>
+   </objectgroup>
+  </tile>
+  <tile id="34">
+   <objectgroup draworder="index">
+    <object x="0" y="16">
+     <polygon points="0,0 16,-16 16,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="35">
+   <objectgroup draworder="index">
+    <object x="0" y="0">
+     <polygon points="0,0 16,16 0,16"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="50">
+   <objectgroup draworder="index">
+    <object x="0" y="0" width="16" height="16"/>
+   </objectgroup>
+  </tile>
+  <tile id="51">
+   <objectgroup draworder="index">
+    <object x="0" y="0" width="16" height="16"/>
+   </objectgroup>
+  </tile>
+  <tile id="64">
+   <objectgroup draworder="index">
+    <object x="0" y="0">
+     <polyline points="0,0 16,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="67">
+   <objectgroup draworder="index">
+    <object x="0" y="0">
+     <polyline points="0,0 16,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="80">
+   <objectgroup draworder="index">
+    <object x="0" y="0">
+     <polyline points="0,0 16,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="81">
+   <objectgroup draworder="index">
+    <object x="0" y="0">
+     <polyline points="0,0 16,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="82">
+   <objectgroup draworder="index">
+    <object x="0" y="0">
+     <polyline points="0,0 16,0"/>
+    </object>
+   </objectgroup>
+  </tile>
+  <tile id="83">
+   <objectgroup draworder="index">
+    <object x="0" y="0" width="16" height="16"/>
+   </objectgroup>
+  </tile>
+ </tileset>
+ <layer name="ground" width="24" height="16">
+  <properties>
+   <property name="unity:layer" value="ground"/>
+   <property name="unity:sortingLayerName" value="background"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxTZKAtUBw1f9T8UfNHzR/G5ivRECvSGAMA36gIFg==
+  </data>
+ </layer>
+ <layer name="platforms" width="24" height="16">
+  <properties>
+   <property name="unity:layer" value="platforms"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4C6gAmImbFgloF01AgCo+E/CogFAH6QACs=
+  </data>
+ </layer>
+ <layer name="walls" width="24" height="16">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2BoASEgFgZiRigNwyJUNh8ZC9LYfGq6n9YA5H70sKd1+NPKfEEamD+UAABDAgL3
+  </data>
+ </layer>
+ <layer name="ladders" width="24" height="16">
+  <properties>
+   <property name="unity:layer" value="ladders"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4D6IGTU/AE1n972jZo/NAEAGFoCoQ==
+  </data>
+ </layer>
+</map>
