@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="48" height="16" tilewidth="16" tileheight="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="24" height="48" tilewidth="16" tileheight="16">
  <properties>
   <property name="unity:scale" value="0.0625"/>
  </properties>
@@ -104,34 +104,13 @@
    </objectgroup>
   </tile>
  </tileset>
- <layer name="ground" width="48" height="16">
+ <layer name="ground" width="24" height="48">
   <properties>
    <property name="unity:layer" value="ground"/>
    <property name="unity:sortingLayerName" value="background"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBi6QHGgHUAhGHX/wIJR9w8sGHX/wIJR9w8sGHU/bYAyECuhYWxgMLof5HZjBojbkDE2MNjcj8vt+NwPihsVIsxFj09cGBcgRi8utyviUA+TM6HAXGLCiYEE/aRiAJI8Dpg=
-  </data>
- </layer>
- <layer name="platforms" width="48" height="16">
-  <properties>
-   <property name="unity:layer" value="platforms"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DgQSAQByHhYCLUEFI/CkbBKCAO4MpbyPmKCYiZkTALHv2j+ZG6wIUBf/iPAvyAGulxsIf/aB4cBaQCALcdCmE=
-  </data>
- </layer>
- <layer name="walls" width="48" height="16">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMAqGNxACYmEgFoTSIgPrnBEHQOHPyAAJ+9Hwpz+ApX9YHhgN/1EAALCRAQg=
-  </data>
- </layer>
- <layer name="ladders" width="48" height="16">
-  <properties>
-   <property name="unity:layer" value="ladders"/>
-  </properties>
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DwgZCBdgCFYNT9AwtG3T8KRsEogIGhnp9G3T8KaAEAVCECoQ==
+   eJzt0bENACAIRUFWwf2HdAJJJGrj/eSVXENGRBatVt3sxOfz+Xw+n8/n8/l8/gu/u1/80ezUf3W3CdMycDU=
   </data>
  </layer>
 </map>
