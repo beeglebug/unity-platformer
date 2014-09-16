@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
 		playerObject = GameObject.Find("player");
 		player = playerObject.GetComponent<Player>();
 		
-		playerObject.transform.position = new Vector3(2,-12,0);
+		playerObject.transform.position = new Vector3(12,-12,0);
 		
 		// load the first level
 		Application.LoadLevel (initialScene);
@@ -42,36 +42,79 @@ public class GameManager : MonoBehaviour {
 
 		sourcePortal.disabled = true;
 
-		float buffer = 0.1f;
+		Vector2 buffer = new Vector2(0.1f, 0.2f);
+		
+		Vector3 position = player.transform.position;
+		
+		Bounds sourceBounds = sourcePortal.GetComponentInParent<BoxCollider2D>().bounds;
+
+		if(sourcePortal.direction == Portal.Direction.X) {
+			if(position.x > sourceBounds.center.x) {
+			} else {
+			}
+		} else {
+		
+		}
 
 		// start loading the new level
 		Application.LoadLevelAdditive(sourcePortal.destinationScene);
+		
 		yield return 0;
 
-		Portal destinationPortal = GameObject.Find(sourcePortal.destinationPortal).GetComponent<Portal>();
+		GameObject destinationPortalObject = GameObject.Find(sourcePortal.destinationPortal);
 		
-		Vector3 playerCenter = player.transform.position;
-		Vector3 portalCenter = sourcePortal.GetComponentInParent<BoxCollider2D>().bounds.center;
+		Portal destinationPortal = destinationPortalObject.GetComponent<Portal>();
+
+		destinationPortal.disabled = true;
 
 		GameObject newMap = GameObject.Find(sourcePortal.destinationScene);
 
 		// delete the old map
 		Destroy(oldMap);
 		
-		// assuming vertical
+		// is it a vertical or horizontal portal?
 		
-		float x;
-		Bounds bounds = destinationPortal.GetComponent<BoxCollider2D>().bounds;
+		Bounds destinationBounds = destinationPortalObject.GetComponent<BoxCollider2D>().bounds;
 		
-		if(playerCenter.x > portalCenter.x) {
-			x = bounds.min.x - buffer;
+		//@todo need to determine above/below left/right before yield
+		
+		if(sourcePortal.direction == Portal.Direction.X) {
+		
+			if(position.x > sourceBounds.center.x) {
+				position.x = destinationBounds.min.x - buffer.x;
+			} else {
+				position.x = destinationBounds.max.x + buffer.x;
+			}
+		
+			//@todo calculate the offset based on relative sizes
+		
+			// get the offset position inside the portal
+			float offset = player.transform.position.y - sourceBounds.max.y;
+			
+			// set relative to the new portal
+			position.y = destinationBounds.max.y + offset;
+					
 		} else {
-			x = bounds.max.x + buffer;
+		
+			if(position.y > sourceBounds.center.y) {
+			Debug.Log ("above");
+				position.y = destinationBounds.min.y - buffer.y;
+			} else {
+				Debug.Log ("below");
+				position.y = destinationBounds.max.y + buffer.y;
+			}
+		
+			// get the offset position inside the portal
+			float offset = player.transform.position.x - sourceBounds.min.x;
+			
+			// set relative to the new portal
+			position.x = destinationBounds.min.x + offset;
+		
 		}
 				
 		player.transform.position = new Vector3(
-			x,
-			player.transform.position.y,
+			position.x,
+			position.y,
 			player.transform.position.z
 		);
 		

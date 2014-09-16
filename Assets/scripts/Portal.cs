@@ -8,4 +8,8 @@ public class Portal : MonoBehaviour {
 
 	public bool disabled;
 
+	public enum Direction { X, Y };
+
+	public Direction direction = Direction.X;
+
 }
