@@ -5,7 +5,7 @@ public class Player : MonoBehaviour {
 	
 
 	void OnTriggerStay2D(Collider2D collidedWith)
-	{		
+	{
 		Portal portal = collidedWith.GetComponentInParent<Portal>();
 		
 		if(portal && !portal.disabled) {
@@ -16,6 +16,17 @@ public class Player : MonoBehaviour {
 			}
 			
 		}
+	}
+
+	void OnTriggerEnter2D(Collider2D collidedWith)
+	{
+		Debug.Log ("trigger enter");
+		Debug.Log (collidedWith);
+	}
+	
+	void OnTriggerExit2D(Collider2D collidedWith)
+	{
+		Debug.Log("trigger exit");
 	}
 
 }

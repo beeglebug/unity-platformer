@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
+// rigidbody is needed to get collision events
 [RequireComponent( typeof( BoxCollider2D ), typeof( Rigidbody2D ))]
 public class CharacterController2D : MonoBehaviour
 {
