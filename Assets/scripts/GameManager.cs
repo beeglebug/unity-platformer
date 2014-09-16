@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour {
 	private static GameObject playerObject;
 	private static Player player;
 
-	private string initialScene = "map1";
+	private string initialScene = "scene1";
 
 	static public GameManager _instance;
 
@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour {
 	static IEnumerator PortalToNewScene(Portal sourcePortal)
 	{
 		// get current map
-		GameObject oldMap = GameObject.FindWithTag("map-container");
+		GameObject oldMap = GameObject.FindWithTag("scene-container");
 
 		sourcePortal.disabled = true;
 

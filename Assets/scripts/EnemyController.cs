@@ -14,7 +14,12 @@ public class EnemyController : MonoBehaviour {
 	private float normalizedHorizontalSpeed = 0;
 	
 	public enum Direction { Right, Left };
-	public Direction movementDirection = Direction.Left;
+	public Direction movementDirection = Direction.Right;
+	
+	public enum Behaviour { Bump };
+	public Behaviour behaviour = Behaviour.Bump;
+	
+	public bool stopAtEdges = true;
 	
 	void Awake ()
 	{
@@ -29,12 +34,35 @@ public class EnemyController : MonoBehaviour {
 		{
 			_velocity.y = 0;
 		}
-	
+
 		if(_controller.collisionState.left) {
+			
+			_velocity.x = 0;
 			movementDirection = Direction.Right;
+			
 		} else if(_controller.collisionState.right) {
-			movementDirection = Direction.Right;
+			
+			_velocity.x = 0;
+			movementDirection = Direction.Left;
+			
+		}	
+	
+		if(stopAtEdges) {
+	
+			if(_controller.collisionState.isOverhanging) {
+				if(movementDirection == Direction.Left) {
+					_velocity.x = 0;
+					_controller.transform.Translate(Vector3.right * 0.1f);
+					movementDirection = Direction.Right;
+				} else if(movementDirection == Direction.Right) {
+					_controller.transform.Translate(Vector3.left * 0.1f);
+					_velocity.x = 0;
+					movementDirection = Direction.Left;
+				}
+			}
+		
 		}
+	
 	
 		if( movementDirection == Direction.Right )
 		{
@@ -59,7 +87,10 @@ public class EnemyController : MonoBehaviour {
 		var smoothedMovementFactor = _controller.isGrounded || _controller.isOnLadder ? groundDamping : inAirDamping; // how fast do we change direction?
 		_velocity.x = Mathf.Lerp( _velocity.x, normalizedHorizontalSpeed * runSpeed, Time.deltaTime * smoothedMovementFactor );
 	
+		// apply gravity
 		_velocity.y += gravity * Time.deltaTime;
+		
+		// pass the movement impulse down to the controller
 		_controller.move( _velocity * Time.deltaTime );
 	
 	}

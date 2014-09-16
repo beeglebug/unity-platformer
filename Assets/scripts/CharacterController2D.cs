@@ -24,10 +24,11 @@ public class CharacterController2D : MonoBehaviour
 		public bool wasGroundedLastFrame;
 		public bool movingDownSlope;
 		public float slopeAngle;
+		public bool isOverhanging;
 
 		public void reset()
 		{
-			right = left = above = below = becameGroundedThisFrame = movingDownSlope = false;
+			right = left = above = below = becameGroundedThisFrame = movingDownSlope = isOverhanging = false;
 			slopeAngle = 0f;
 		}
 	}
@@ -50,10 +51,10 @@ public class CharacterController2D : MonoBehaviour
 	public float slopeLimit = 45f;
 
 	[Range( 2, 20 )]
-	public int totalHorizontalRays = 8;
+	public int totalHorizontalRays = 5;
 
 	[Range( 2, 20 )]
-	public int totalVerticalRays = 4;
+	public int totalVerticalRays = 3;
 
 
 	/// this is used to calculate the downward ray that is cast to check for slopes. We use the somewhat arbitrary value 75 degrees
@@ -107,6 +108,8 @@ public class CharacterController2D : MonoBehaviour
 	public bool isTouchingLadderTop;
 	public bool isOnLadder;
 
+	private float _debugRayScale = 10f;
+
 	void Awake()
 	{
 		// add our one-way platforms to our normal platform mask so that we can land on them from above
@@ -142,7 +145,6 @@ public class CharacterController2D : MonoBehaviour
 
 		var desiredPosition = transform.position + deltaMovement;
 		primeRaycastOrigins( desiredPosition, deltaMovement );
-
 
 		// first, we check for a slope below us before moving
 		// only check slopes if we are going down and grounded
@@ -257,7 +259,7 @@ public class CharacterController2D : MonoBehaviour
 		{
 			var ray = new Vector2( initialRayOrigin.x, initialRayOrigin.y + i * _verticalDistanceBetweenRays );
 
-			DrawRay( ray, rayDirection * rayDistance, Color.red );
+			DrawRay( ray, rayDirection * rayDistance * _debugRayScale, Color.red );
 
 			// if we are grounded we will include oneWayPlatforms only on the first ray (the bottom one). this will allow us to
 			// walk up sloped oneWayPlatforms
@@ -350,11 +352,16 @@ public class CharacterController2D : MonoBehaviour
 		if( isGoingUp && !collisionState.wasGroundedLastFrame )
 			mask &= ~oneWayPlatformMask;
 
+		int impacts = 0;
+
+
+		// if this needed optimising, we could do the first and last rays first, then the middle ones
+		// that way we will still catch hanging off edges
 		for( var i = 0; i < totalVerticalRays; i++ )
 		{
 			var ray = new Vector2( initialRayOrigin.x + i * _horizontalDistanceBetweenRays, initialRayOrigin.y );
 
-			DrawRay( ray, rayDirection * rayDistance, Color.red );
+			DrawRay( ray, rayDirection * rayDistance * _debugRayScale, Color.red );
 			_raycastHit = Physics2D.Raycast( ray, rayDirection, rayDistance, mask );
 			if( _raycastHit )
 			{
@@ -379,9 +386,15 @@ public class CharacterController2D : MonoBehaviour
 				if( !isGoingUp && deltaMovement.y > 0.00001f ) _isGoingUpSlope = true;
 
 				// we add a small fudge factor for the float operations here. if our rayDistance is smaller
-				// than the width + fudge bail out because we have a direct impact
-				if( rayDistance < skinWidth + kSkinWidthFloatFudgeFactor ) return;
+				// than the width + fudge we have a direct impact (on floor)
+				if( rayDistance < skinWidth + kSkinWidthFloatFudgeFactor ) {
+					impacts++;
+				}
 			}
+		}
+		
+		if(impacts > 0 && impacts < totalVerticalRays) {
+			collisionState.isOverhanging = true;
 		}
 	}
 
