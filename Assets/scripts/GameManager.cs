@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
 		playerObject = GameObject.Find("player");
 		player = playerObject.GetComponent<Player>();
 		
-		playerObject.transform.position = new Vector3(12,-12,0);
+		playerObject.transform.position = new Vector3(28,-12,0);
 		
 		// load the first level
 		Application.LoadLevel (initialScene);
@@ -29,13 +29,13 @@ public class GameManager : MonoBehaviour {
 	
 	public static void PortalTransition(Portal portal)
 	{		
-		_instance.StartCoroutine(LoadScene(portal));
+		_instance.StartCoroutine(PortalToNewScene(portal));
 	}
 	
 	/**
 	 * 
 	 */
-	static IEnumerator LoadScene(Portal sourcePortal)
+	static IEnumerator PortalToNewScene(Portal sourcePortal)
 	{
 		// get current map
 		GameObject oldMap = GameObject.FindWithTag("map-container");
@@ -44,17 +44,8 @@ public class GameManager : MonoBehaviour {
 
 		Vector2 buffer = new Vector2(0.1f, 0.2f);
 		
+		// get this pre yield, because the player will move in between
 		Vector3 position = player.transform.position;
-		
-		Bounds sourceBounds = sourcePortal.GetComponentInParent<BoxCollider2D>().bounds;
-
-		if(sourcePortal.direction == Portal.Direction.X) {
-			if(position.x > sourceBounds.center.x) {
-			} else {
-			}
-		} else {
-		
-		}
 
 		// start loading the new level
 		Application.LoadLevelAdditive(sourcePortal.destinationScene);
@@ -73,11 +64,9 @@ public class GameManager : MonoBehaviour {
 		Destroy(oldMap);
 		
 		// is it a vertical or horizontal portal?
-		
+		Bounds sourceBounds = sourcePortal.GetComponentInParent<BoxCollider2D>().bounds;
 		Bounds destinationBounds = destinationPortalObject.GetComponent<BoxCollider2D>().bounds;
-		
-		//@todo need to determine above/below left/right before yield
-		
+				
 		if(sourcePortal.direction == Portal.Direction.X) {
 		
 			if(position.x > sourceBounds.center.x) {
@@ -97,10 +86,8 @@ public class GameManager : MonoBehaviour {
 		} else {
 		
 			if(position.y > sourceBounds.center.y) {
-			Debug.Log ("above");
 				position.y = destinationBounds.min.y - buffer.y;
 			} else {
-				Debug.Log ("below");
 				position.y = destinationBounds.max.y + buffer.y;
 			}
 		
@@ -122,8 +109,6 @@ public class GameManager : MonoBehaviour {
 		CameraFollow camera = GameObject.FindWithTag("MainCamera").GetComponent<CameraFollow>();
 		camera.SnapToTarget();
 		camera.CalculateBounds(newMap);
-		
-		//Debug.Log (onRight);
 	}
 	
 	

@@ -3,90 +3,64 @@ using System.Collections;
 
 public class EnemyController : MonoBehaviour {
 
-	public float gravity = -25f;
-	public float runSpeed = 2f;
-	public float climbSpeed = 4f;
+	private CharacterController2D _controller;
+	private Vector3 _velocity;
 	public float groundDamping = 20f; // how fast do we change direction? higher means faster
 	public float inAirDamping = 5f;
-	public float jumpHeight = 3f;
+	public float runSpeed = 8f;
+	public float gravity = -25f;
 	
 	[HideInInspector]
 	private float normalizedHorizontalSpeed = 0;
-	//private float normalizedVerticalSpeed = 0;
 	
-	private CharacterController2D _controller;
-	private Animator _animator;
-	private RaycastHit2D _lastControllerColliderHit;
-	private Vector3 _velocity;
-		
-	void Awake () {
-
+	public enum Direction { Right, Left };
+	public Direction movementDirection = Direction.Left;
+	
+	void Awake ()
+	{
 		_controller = GetComponent<CharacterController2D>();
-			
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
+	void Update ()
+	{
 		_velocity = _controller.velocity;
-		
+	
 		if( _controller.isGrounded )
 		{
 			_velocity.y = 0;
 		}
-		
-		bool moveRight = false;
-		bool moveLeft = false;
-
-		GameObject player = GameObject.FindGameObjectWithTag("Player");
-		
-		if(player.transform.position.x < transform.position.x) {
-			moveLeft = true;
-			moveRight = false;
-		} else {
-			moveLeft = false;
-			moveRight = true;
+	
+		if(_controller.collisionState.left) {
+			movementDirection = Direction.Right;
+		} else if(_controller.collisionState.right) {
+			movementDirection = Direction.Right;
 		}
-		
-		if( moveRight)
+	
+		if( movementDirection == Direction.Right )
 		{
 			normalizedHorizontalSpeed = 1;
 			if( transform.localScale.x < 0f ) {
 				transform.localScale = new Vector3( -transform.localScale.x, transform.localScale.y, transform.localScale.z );
 			}
-			
-			if( _controller.isGrounded ) {
-				//_animator.Play( Animator.StringToHash( "run" ) );
-			}
-		}
-		else if( moveLeft )
+
+		} else if( movementDirection == Direction.Left )
 		{
 			normalizedHorizontalSpeed = -1;
 			if( transform.localScale.x > 0f ) {
 				transform.localScale = new Vector3( -transform.localScale.x, transform.localScale.y, transform.localScale.z );
 			}
-			
-			if( _controller.isGrounded ) {
-				//_animator.Play( Animator.StringToHash( "run" ) );
-			}
 		}
 		else
 		{
 			normalizedHorizontalSpeed = 0;
-			
-			if( _controller.isGrounded ) {
-				//_animator.Play( Animator.StringToHash( "idle" ) );
-			}
 		}
 		
-		
 		// apply horizontal speed smoothing it
-		var smoothedMovementFactor = _controller.isGrounded ? groundDamping : inAirDamping; // how fast do we change direction?
+		var smoothedMovementFactor = _controller.isGrounded || _controller.isOnLadder ? groundDamping : inAirDamping; // how fast do we change direction?
 		_velocity.x = Mathf.Lerp( _velocity.x, normalizedHorizontalSpeed * runSpeed, Time.deltaTime * smoothedMovementFactor );
-		
+	
 		_velocity.y += gravity * Time.deltaTime;
-		
 		_controller.move( _velocity * Time.deltaTime );
-
+	
 	}
 }

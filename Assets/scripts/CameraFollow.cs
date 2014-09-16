@@ -20,7 +20,7 @@ public class CameraFollow : MonoBehaviour {
 	void Update () {
 
 		TrackTarget ();
-        CheckBounds ();        
+        ConstrainToBounds ();        
 	
     }
 
@@ -70,9 +70,11 @@ public class CameraFollow : MonoBehaviour {
 			map.bounds.max.y - (cameraHeight / 2f)
 		);
 
+		ConstrainToBounds();
+
     }
     
-    void CheckBounds() {
+    void ConstrainToBounds() {
         
 		transform.position = new Vector3(
         	Mathf.Clamp(transform.position.x, min.x, max.x),
