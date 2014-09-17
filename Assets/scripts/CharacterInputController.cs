@@ -59,8 +59,9 @@ public class CharacterInputController : MonoBehaviour
 		{
 			normalizedHorizontalSpeed = 0;
 
-			if( _controller.isGrounded )
-				_animator.Play( Animator.StringToHash( "idle" ) );
+			if( _controller.isGrounded ) {
+				//_animator.Play( Animator.StringToHash( "idle" ) );
+			}
 		}
 
 		/**

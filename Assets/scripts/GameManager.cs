@@ -3,8 +3,7 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
-	private static GameObject playerObject;
-	private static Player player;
+	private static GameObject player;
 
 	private string initialScene = "scene1";
 
@@ -18,10 +17,9 @@ public class GameManager : MonoBehaviour {
 		DontDestroyOnLoad(transform.gameObject);
 		
 		// cache stuff
-		playerObject = GameObject.Find("player");
-		player = playerObject.GetComponent<Player>();
+		player = GameObject.Find("player");
 		
-		playerObject.transform.position = new Vector3(28,-12,0);
+		player.transform.position = new Vector3(28,-12,0);
 		
 		// load the first level
 		Application.LoadLevel (initialScene);

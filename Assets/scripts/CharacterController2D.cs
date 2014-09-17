@@ -132,8 +132,8 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	/// attempts to move the character to position + deltaMovement. Any colliders in the way will cause the movement to
-	/// stop when run into.
+	// attempt to move the character to position + deltaMovement. Any colliders in the way will cause the movement to
+	// stop when run into.
 	public void move( Vector3 deltaMovement )
 	{
 		// save our current grounded state which we will use for wasGroundedLastFrame and becameGroundedThisFrame
@@ -182,8 +182,6 @@ public class CharacterController2D : MonoBehaviour
 			_hasdroppedThroughPlatform = false;
 			platformMask |= oneWayPlatformMask;
 		}
-
-
 	}
 
 	/**
@@ -198,10 +196,8 @@ public class CharacterController2D : MonoBehaviour
 		_droppedThroughPlatformTime = Time.time;
 	}
 
-	/// <summary>
-	/// this should be called anytime you have to modify the BoxCollider2D at runtime. It will recalculate the distance between the rays used for collision detection.
-	/// It is also used in the skinWidth setter in case it is changed at runtime.
-	/// </summary>
+	// this should be called anytime you have to modify the BoxCollider2D at runtime. It will recalculate the distance between the rays used for collision detection.
+	// It is also used in the skinWidth setter in case it is changed at runtime.
 	public void recalculateDistanceBetweenRays()
 	{
 		// figure out the distance between our rays in both directions
@@ -214,12 +210,8 @@ public class CharacterController2D : MonoBehaviour
 		_horizontalDistanceBetweenRays = colliderUseableWidth / ( totalVerticalRays - 1 );
 	}
 
-	/// <summary>
-	/// resets the raycastOrigins to the current extents of the box collider inset by the skinWidth. It is inset
-	/// to avoid casting a ray from a position directly touching another collider which results in wonky normal data.
-	/// </summary>
-	/// <param name="futurePosition">Future position.</param>
-	/// <param name="deltaMovement">Delta movement.</param>
+	// resets the raycastOrigins to the current extents of the box collider inset by the skinWidth. It is inset
+	// to avoid casting a ray from a position directly touching another collider which results in wonky normal data.
 	private void primeRaycastOrigins( Vector3 futurePosition, Vector3 deltaMovement )
 	{
 		var scaledColliderSize = new Vector2( boxCollider.size.x * Mathf.Abs( transform.localScale.x ), boxCollider.size.y * Mathf.Abs( transform.localScale.y ) ) / 2;
@@ -242,13 +234,10 @@ public class CharacterController2D : MonoBehaviour
 		_raycastOrigins.bottomLeft.y += skinWidth;
 	}
 
-
-	/// <summary>
-	/// we have to use a bit of trickery in this one. The rays must be cast from a small distance inside of our
-	/// collider (skinWidth) to avoid zero distance rays which will get the wrong normal. Because of this small offset
-	/// we have to increase the ray distance skinWidth then remember to remove skinWidth from deltaMovement before
-	/// actually moving the player
-	/// </summary>
+	// we have to use a bit of trickery in this one. The rays must be cast from a small distance inside of our
+	// collider (skinWidth) to avoid zero distance rays which will get the wrong normal. Because of this small offset
+	// we have to increase the ray distance skinWidth then remember to remove skinWidth from deltaMovement before
+	// actually moving the player
 	private void moveHorizontally( ref Vector3 deltaMovement )
 	{
 		var isGoingRight = deltaMovement.x > 0;
@@ -304,13 +293,7 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
-
-	/// <summary>
 	/// handles adjusting deltaMovement if we are going up a slope.
-	/// </summary>
-	/// <returns><c>true</c>, if horizontal slope was handled, <c>false</c> otherwise.</returns>
-	/// <param name="deltaMovement">Delta movement.</param>
-	/// <param name="angle">Angle.</param>
 	private bool handleHorizontalSlope( ref Vector3 deltaMovement, float angle )
 	{
 		// disregard 90 degree angles (walls)
@@ -434,28 +417,56 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
+	void TakeDamageFrom(GameObject damageSource)
+	{
+		Hazard hazard = damageSource.GetComponent<Hazard>();
+		
+		Health health = GetComponent<Health>();
+		
+		health.current -= hazard.damage;
+		
+		Animator animator = GetComponent<Animator>();
+		animator.Play( Animator.StringToHash( "damage" ) );
+	}
+
 	/**
 	 * handle various triggers the player might collide with
 	 */
-	void OnTriggerEnter2D(Collider2D collision)
+	void OnTriggerEnter2D(Collider2D collider)
 	{
-		switch(collision.gameObject.tag)
+		switch(collider.tag)
 		{
 			case "ladder":
 				isTouchingLadder = true;
 				break;
 			case "ladder-top":
 				isTouchingLadderTop = true;
-				break;
+				break;			
 		}
+		
+		if(collider.gameObject.HasComponent<Hazard>()) {
+			TakeDamageFrom(collider.gameObject);
+		}
+		
 	}
 
-	/**
-	 * handle various triggers the player might collide with
-	 */
-	void OnTriggerExit2D(Collider2D collision)
+	void OnTriggerStay2D(Collider2D collider)
 	{
-		switch(collision.gameObject.tag)
+		Portal portal = collider.GetComponentInParent<Portal>();
+		
+		if(portal && !portal.disabled) {
+			
+			if(collider.bounds.Contains (transform.position)){
+				
+				GameManager.PortalTransition(portal);
+			}
+			
+		}
+	}
+	
+	void OnTriggerExit2D(Collider2D collider)
+	{
+		switch(collider.gameObject.tag)
 		{
 			case "ladder":
 				isTouchingLadder = false;
