@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 public class CameraFollow : MonoBehaviour {
 
@@ -12,8 +13,10 @@ public class CameraFollow : MonoBehaviour {
     
 	void Awake () {
 	
-		target = GameObject.FindGameObjectWithTag ("Player");
+		GameObject lol = GameObject.FindGameObjectWithTag ("Player");
         
+		Selection.activeObject = lol;
+		Debug.Log (lol);
 	}
 	
 
