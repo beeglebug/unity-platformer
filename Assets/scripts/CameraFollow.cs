@@ -13,10 +13,8 @@ public class CameraFollow : MonoBehaviour {
     
 	void Awake () {
 	
-		GameObject lol = GameObject.FindGameObjectWithTag ("Player");
+		//target = GameObject.FindGameObjectWithTag ("Player");
         
-		Selection.activeObject = lol;
-		Debug.Log (lol);
 	}
 	
 
@@ -61,7 +59,7 @@ public class CameraFollow : MonoBehaviour {
 		float cameraHeight = 2f * camera.orthographicSize;
         float cameraWidth = camera.aspect * cameraHeight;
         
-		TiledMap map = mapObject.GetComponent<TiledMap>();
+		Map map = mapObject.GetComponentInParent<Map>();
 
 		min = new Vector2(
 			map.bounds.min.x + (cameraWidth / 2f),

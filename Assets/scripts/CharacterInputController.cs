@@ -59,9 +59,7 @@ public class CharacterInputController : MonoBehaviour
 		{
 			normalizedHorizontalSpeed = 0;
 
-			if( _controller.isGrounded ) {
-				//_animator.Play( Animator.StringToHash( "idle" ) );
-			}
+			_animator.SetBool( "running", false );
 		}
 
 		/**
@@ -72,29 +70,19 @@ public class CharacterInputController : MonoBehaviour
 			if (_controller.isTouchingLadder) {
 
 				if (!_controller.isOnLadder) {
-
-					Debug.Log ("start climbing up ladder");
 					_controller.isOnLadder = true;
 				}
 
 				normalizedVerticalSpeed = 1;
-				_animator.Play( Animator.StringToHash( "climb" ) );
 
 			}
 
-		} else {
-					
-			normalizedVerticalSpeed = 0;
-
-		}
-
-		if (Input.GetKeyDown (KeyCode.DownArrow)) {
+		} else if (Input.GetKeyDown (KeyCode.DownArrow)) {
 			
 			if (_controller.isTouchingLadder) {
 				
 				// only allow drop down if touching the top collider
 				if (!_controller.isOnLadder && _controller.isTouchingLadderTop) {
-					Debug.Log ("start climbing down ladder");
 					_controller.isOnLadder = true;
 					_controller.dropThroughPlatform();
 				}
@@ -102,7 +90,6 @@ public class CharacterInputController : MonoBehaviour
 			
 			if(_controller.isOnLadder) {
 				normalizedVerticalSpeed = -1;
-				_animator.Play( Animator.StringToHash( "climb" ) );
 			}
 			
 			
@@ -125,13 +112,19 @@ public class CharacterInputController : MonoBehaviour
 
 		}
 
+		if(_controller.isOnLadder) {
+			_animator.SetBool( "climbing", true );
+		} else {
+			_animator.SetBool( "climbing", false );
+		}
+
 		// we can only jump whilst grounded
 		if( _controller.isGrounded && Input.GetKeyDown( jumpKey ) )
 		{
 			if(Input.GetKey(KeyCode.DownArrow))
 			{
 				_controller.dropThroughPlatform();
-				_animator.Play( Animator.StringToHash( "fall" ) );
+				//_animator.Play( Animator.StringToHash( "fall" ) );
 			}
 			else
 			{

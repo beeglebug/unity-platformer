@@ -453,7 +453,7 @@ public class CharacterController2D : MonoBehaviour
 	void OnTriggerStay2D(Collider2D collider)
 	{
 		Portal portal = collider.GetComponentInParent<Portal>();
-		
+
 		if(portal && !portal.disabled) {
 			
 			if(collider.bounds.Contains (transform.position)){

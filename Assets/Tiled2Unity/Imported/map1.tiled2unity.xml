@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 16/09/2014 17:12:16-->
+<!--Last exported: 19/09/2014 14:26:51-->
 <Tiled2Unity version="0.9.5.3">
   <AssignMaterial mesh="mesh_[00]_[00]" material="new-tiles" sortingLayerName="background" sortingOrder="0" alphaColorKey="#5e81a2" />
   <AssignMaterial mesh="mesh_[01]_[00]" material="new-tiles" sortingLayerName="" sortingOrder="1" alphaColorKey="#5e81a2" />

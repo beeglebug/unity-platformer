@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 		// cache stuff
 		player = GameObject.Find("player");
 		
-		player.transform.position = new Vector3(28,-12,0);
+		player.transform.position = new Vector3(20,-8,0);
 		
 		// load the first level
 		Application.LoadLevel (initialScene);
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour {
 		
 		Portal destinationPortal = destinationPortalObject.GetComponent<Portal>();
 
-		destinationPortal.disabled = true;
+		//destinationPortal.disabled = true;
 
 		GameObject newMap = GameObject.Find(sourcePortal.destinationScene);
 

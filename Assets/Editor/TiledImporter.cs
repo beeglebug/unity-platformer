@@ -6,10 +6,6 @@ using System.Linq;
 [Tiled2Unity.CustomTiledImporter]
 class TiledImporter : Tiled2Unity.ICustomTiledImporter
 {
-	
-	private float _scaleFactor = 0.0625f;
-
-
 	public void HandleCustomProperties(GameObject gameObject, IDictionary<string, string> properties)
 	{
 
@@ -19,29 +15,9 @@ class TiledImporter : Tiled2Unity.ICustomTiledImporter
 	public void CustomizePrefab(GameObject prefab)
 	{
 		prefab.tag = "map";
-		prefab.AddComponent("TiledMap");
 	
 		ImportLadders (prefab);		
-		CalculateBounds(prefab);
 	}
-
-	public void CalculateBounds(GameObject prefab)
-	{
-		// find all the polygon colliders
-		Component[] polygonColliders = prefab.GetComponentsInChildren<PolygonCollider2D>();
-			
-		if (polygonColliders == null)
-			return;
-		
-		TiledMap map = prefab.GetComponent<TiledMap>();
-		
-		foreach (PolygonCollider2D collider in polygonColliders)
-		{
-			map.bounds.Encapsulate(collider.bounds.min * _scaleFactor);
-			map.bounds.Encapsulate(collider.bounds.max * _scaleFactor);
-		}
-	}
-
 
 	public void ImportLadders(GameObject prefab)
 	{
