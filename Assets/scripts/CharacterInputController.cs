@@ -37,29 +37,27 @@ public class CharacterInputController : MonoBehaviour
 			_velocity.y = 0;
 		}
 
+		bool xAxisDown = false;
+		bool yAxisDown = false;
+		
 		if( Input.GetKey( KeyCode.RightArrow ) )
 		{
+			xAxisDown = true;
 			normalizedHorizontalSpeed = 1;
-			if( transform.localScale.x < 0f )
+			if( transform.localScale.x < 0f ) {
 				transform.localScale = new Vector3( -transform.localScale.x, transform.localScale.y, transform.localScale.z );
-
-			if( _controller.isGrounded )
-				_animator.SetBool( "running", true );
+			}
 		}
 		else if( Input.GetKey( KeyCode.LeftArrow ) )
 		{
+			xAxisDown = true;
 			normalizedHorizontalSpeed = -1;
-			if( transform.localScale.x > 0f )
+			if( transform.localScale.x > 0f ) {
 				transform.localScale = new Vector3( -transform.localScale.x, transform.localScale.y, transform.localScale.z );
-
-			if( _controller.isGrounded )
-				_animator.SetBool( "running", true );
-		}
-		else
-		{
+			}
+			
+		} else {
 			normalizedHorizontalSpeed = 0;
-
-			_animator.SetBool( "running", false );
 		}
 
 		/**
@@ -74,7 +72,6 @@ public class CharacterInputController : MonoBehaviour
 				}
 
 				normalizedVerticalSpeed = 1;
-
 			}
 
 		} else if (Input.GetKeyDown (KeyCode.DownArrow)) {
@@ -100,22 +97,20 @@ public class CharacterInputController : MonoBehaviour
 		// already climbing
 		if (Input.GetKey (KeyCode.UpArrow)) {
 
+			yAxisDown = true;
+
 			if(_controller.isOnLadder) {
 				normalizedVerticalSpeed = 1;
 			}
 
 		} else if (Input.GetKey (KeyCode.DownArrow)) {
 		
+			yAxisDown = true;
+		
 			if(_controller.isOnLadder) {
 				normalizedVerticalSpeed = -1;
 			}
 
-		}
-
-		if(_controller.isOnLadder) {
-			_animator.SetBool( "climbing", true );
-		} else {
-			_animator.SetBool( "climbing", false );
 		}
 
 		// we can only jump whilst grounded
@@ -124,12 +119,10 @@ public class CharacterInputController : MonoBehaviour
 			if(Input.GetKey(KeyCode.DownArrow))
 			{
 				_controller.dropThroughPlatform();
-				//_animator.Play( Animator.StringToHash( "fall" ) );
 			}
 			else
 			{
 				_velocity.y = Mathf.Sqrt( 2f * jumpHeight * -gravity );
-				_animator.Play( Animator.StringToHash( "jump" ) );
 			}
 		}
 
@@ -142,13 +135,21 @@ public class CharacterInputController : MonoBehaviour
 		
 			_velocity.y = Mathf.Lerp( _velocity.y, normalizedVerticalSpeed * climbSpeed, Time.deltaTime * smoothedMovementFactor );
 
-		}
-		else
-		{
+		} else {
 			_velocity.y += gravity * Time.deltaTime;
 		}
 
 		_controller.move( _velocity * Time.deltaTime );
+		
+		// set animator flags	
+		_animator.SetBool( "onLadder", _controller.isOnLadder );
+		_animator.SetBool( "onGround", _controller.isGrounded );
+		_animator.SetFloat( "velocityX", Mathf.Abs(_velocity.x));
+		_animator.SetFloat( "velocityY", _velocity.y);
+		_animator.SetBool( "xAxisDown", xAxisDown);
+		_animator.SetBool( "yAxisDown", yAxisDown);
+		
+		
 	}
 
 }
