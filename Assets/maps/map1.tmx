@@ -4,7 +4,7 @@
   <property name="unity:scale" value="0.0625"/>
  </properties>
  <tileset firstgid="1" name="new-tiles" tilewidth="16" tileheight="16">
-  <image source="../images/new-tiles.png" trans="5e81a2" width="256" height="256"/>
+  <image source="../../../../../Dropbox/Projects/unity/ctrl/Assets/images/new-tiles.png" trans="5e81a2" width="256" height="256"/>
   <tile id="1">
    <objectgroup draworder="index">
     <object x="0" y="0">
@@ -110,7 +110,7 @@
    <property name="unity:sortingLayerName" value="background"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBi6QHGgHUAhGHX/wIJR9w8sGHX/wIJR9w8sGHU/bYAyECuhYWxgMLof5HZjBojbkDE2MNjcj8vt+NwPihsVIsxFj09cGBcgRi8utyviUA+TM6HAXGLCiYEE/aRiAJI8Dpg=
+   eJztjkEKwCAMBPOVaH+Q/v9t7UGhlEQjHhZhB+aUaEbkXBQdsAn7sbAfC/uxsB8L+7Gwf536WoJZcRyhbedK3swY0ef2uftXHUe3+s492bPgb8+I7PtVH2eIDQc=
   </data>
  </layer>
  <layer name="platforms" width="48" height="16">
@@ -118,7 +118,7 @@
    <property name="unity:layer" value="platforms"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DgQSAQByHhYCLUEFI/CkbBKCAO4MpbyPmKCYiZkTALHv2j+ZG6wIUBf/iPAvyAGulxsIf/aB4cBaQCALcdCmE=
+   eJxjYBgFo2DgQSAQByHhYCLUEFI/CkbBKCAO4MpbyPmKCYiZkTALHv2j+ZG6wIUBf/iPAtqDwR7+o3lwFJAKALZGCg4=
   </data>
  </layer>
  <layer name="walls" width="48" height="16">
@@ -131,7 +131,7 @@
    <property name="unity:layer" value="ladders"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2DwgZCBdgCFYNT9AwtG3T8KRsEogIGhnp9G3T8KaAEAVCECoQ==
+   eJztziEBAAAIA7CHpH8WEqAQILYES+Cfug4s+d/yB4BZAwVjAaU=
   </data>
  </layer>
 </map>
