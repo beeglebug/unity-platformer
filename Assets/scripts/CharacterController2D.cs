@@ -417,18 +417,6 @@ public class CharacterController2D : MonoBehaviour
 		}
 	}
 
-	void TakeDamageFrom(GameObject damageSource)
-	{
-		Hazard hazard = damageSource.GetComponent<Hazard>();
-		
-		Health health = GetComponent<Health>();
-		
-		health.current -= hazard.damage;
-		
-		Animator animator = GetComponent<Animator>();
-		animator.Play( Animator.StringToHash( "damage" ) );
-	}
-
 	/**
 	 * handle various triggers the player might collide with
 	 */
@@ -442,10 +430,6 @@ public class CharacterController2D : MonoBehaviour
 			case "ladder-top":
 				isTouchingLadderTop = true;
 				break;			
-		}
-		
-		if(collider.gameObject.HasComponent<Hazard>()) {
-			TakeDamageFrom(collider.gameObject);
 		}
 		
 	}

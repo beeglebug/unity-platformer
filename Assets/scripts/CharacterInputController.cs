@@ -20,6 +20,7 @@ public class CharacterInputController : MonoBehaviour
 	private Vector3 _velocity;
 
 	private KeyCode jumpKey = KeyCode.Space;
+	private KeyCode attackKey = KeyCode.F;
 
 	void Awake()
 	{
@@ -125,6 +126,22 @@ public class CharacterInputController : MonoBehaviour
 				_velocity.y = Mathf.Sqrt( 2f * jumpHeight * -gravity );
 			}
 		}
+		
+		
+		// attack!
+		if( Input.GetKeyDown( attackKey ) )
+		{
+			GameObject hitbox = transform.FindChild("hitbox").gameObject;
+			hitbox.SetActive(true);
+		}
+		
+		if( Input.GetKeyUp( attackKey ) )
+		{
+			GameObject hitbox = transform.FindChild("hitbox").gameObject;
+			hitbox.SetActive(false);
+		}
+		
+		
 
 		// apply horizontal speed smoothing it
 		var smoothedMovementFactor = _controller.isGrounded || _controller.isOnLadder ? groundDamping : inAirDamping; // how fast do we change direction?
