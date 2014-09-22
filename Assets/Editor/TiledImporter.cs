@@ -17,8 +17,33 @@ class TiledImporter : Tiled2Unity.ICustomTiledImporter
 		prefab.tag = "map";
 	
 		ImportLadders (prefab);		
+		ImportSpikes (prefab);		
 	}
 
+	public void ImportSpikes(GameObject prefab)
+	{
+		// find all the polygon colliders
+		Component[] polygonColliders = prefab.GetComponentsInChildren<PolygonCollider2D>();
+		
+		if (polygonColliders == null)
+			return;
+		
+		// find all *ladder* polygon colliders
+		int mask = LayerMask.NameToLayer("spikes");
+		var polygons = from polygon in polygonColliders
+			where polygon.gameObject.layer == mask
+				select polygon;
+		
+		if (polygons == null)
+			return;
+		
+		foreach (PolygonCollider2D poly in polygons)
+		{		
+			Hazard hazard = poly.gameObject.AddComponent<Hazard>();
+		}
+	}
+	
+	
 	public void ImportLadders(GameObject prefab)
 	{
 

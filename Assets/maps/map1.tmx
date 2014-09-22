@@ -4,7 +4,7 @@
   <property name="unity:scale" value="0.0625"/>
  </properties>
  <tileset firstgid="1" name="new-tiles" tilewidth="16" tileheight="16">
-  <image source="../../../../../Dropbox/Projects/unity/ctrl/Assets/images/new-tiles.png" trans="5e81a2" width="256" height="256"/>
+  <image source="../images/new-tiles.png" trans="5e81a2" width="256" height="256"/>
   <tile id="1">
    <objectgroup draworder="index">
     <object x="0" y="0">
@@ -103,6 +103,11 @@
     <object x="0" y="0" width="16" height="16"/>
    </objectgroup>
   </tile>
+  <tile id="96">
+   <objectgroup draworder="index">
+    <object x="0" y="7" width="16" height="9"/>
+   </objectgroup>
+  </tile>
  </tileset>
  <layer name="ground" width="48" height="16">
   <properties>
@@ -132,6 +137,14 @@
   </properties>
   <data encoding="base64" compression="zlib">
    eJztziEBAAAIA7CHpH8WEqAQILYES+Cfug4s+d/yB4BZAwVjAaU=
+  </data>
+ </layer>
+ <layer name="spikes" width="48" height="16">
+  <properties>
+   <property name="unity:layer" value="spikes"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJztwzENAAAIA7BZxb8Jnkng4GiTJgAAcGeanxZFywDD
   </data>
  </layer>
 </map>
