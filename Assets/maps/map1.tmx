@@ -105,7 +105,9 @@
   </tile>
   <tile id="96">
    <objectgroup draworder="index">
-    <object x="0" y="7" width="16" height="9"/>
+    <object x="0" y="7">
+     <polyline points="0,0 16,0"/>
+    </object>
    </objectgroup>
   </tile>
  </tileset>

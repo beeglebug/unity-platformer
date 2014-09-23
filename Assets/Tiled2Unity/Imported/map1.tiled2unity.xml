@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 22/09/2014 17:32:18-->
+<!--Last exported: 23/09/2014 13:30:17-->
 <Tiled2Unity version="0.9.5.3">
   <AssignMaterial mesh="mesh_[00]_[00]" material="new-tiles" sortingLayerName="background" sortingOrder="0" alphaColorKey="#5e81a2" />
   <AssignMaterial mesh="mesh_[01]_[00]" material="new-tiles" sortingLayerName="" sortingOrder="1" alphaColorKey="#5e81a2" />
@@ -61,9 +61,9 @@
     <GameObject name="spikes_04" layer="spikes">
       <GameObject copy="mesh_[04]_[00]" />
       <GameObject name="Collision">
-        <PolygonCollider2D>
-          <Path>672,-215 640,-215 640,-224 672,-224</Path>
-        </PolygonCollider2D>
+        <EdgeCollider2D>
+          <Points>672,-215 640,-215</Points>
+        </EdgeCollider2D>
       </GameObject>
     </GameObject>
   </Prefab>

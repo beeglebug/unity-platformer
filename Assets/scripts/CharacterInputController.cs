@@ -131,16 +131,12 @@ public class CharacterInputController : MonoBehaviour
 		// attack!
 		if( Input.GetKeyDown( attackKey ) )
 		{
+			_animator.SetTrigger( "attacking");
 			GameObject hitbox = transform.FindChild("hitbox").gameObject;
 			hitbox.SetActive(true);
+			//Invoke("AttackAnimationEnded", 0.1f);
 		}
-		
-		if( Input.GetKeyUp( attackKey ) )
-		{
-			GameObject hitbox = transform.FindChild("hitbox").gameObject;
-			hitbox.SetActive(false);
-		}
-		
+	
 		
 
 		// apply horizontal speed smoothing it
@@ -167,6 +163,13 @@ public class CharacterInputController : MonoBehaviour
 		_animator.SetBool( "yAxisDown", yAxisDown);
 		
 		
+	}
+
+	void AttackAnimationEnded()
+	{
+		_animator.SetBool( "attacking", false );
+		GameObject hitbox = transform.FindChild("hitbox").gameObject;
+		hitbox.SetActive(false);
 	}
 
 }
