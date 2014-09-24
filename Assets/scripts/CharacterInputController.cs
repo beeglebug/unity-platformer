@@ -16,11 +16,15 @@ public class CharacterInputController : MonoBehaviour
 
 	private CharacterController2D _controller;
 	private Animator _animator;
+	
 	private RaycastHit2D _lastControllerColliderHit;
 	private Vector3 _velocity;
 
 	private KeyCode jumpKey = KeyCode.Space;
 	private KeyCode attackKey = KeyCode.F;
+
+	private float _attackTime;
+	private float _attackLength = 0.2f;
 
 	void Awake()
 	{
@@ -127,16 +131,21 @@ public class CharacterInputController : MonoBehaviour
 			}
 		}
 		
+		GameObject weapon = transform.FindChild("weapon").gameObject;
 		
 		// attack!
 		if( Input.GetKeyDown( attackKey ) )
 		{
-			_animator.SetTrigger( "attacking");
-			GameObject hitbox = transform.FindChild("hitbox").gameObject;
-			hitbox.SetActive(true);
-			//Invoke("AttackAnimationEnded", 0.1f);
+			weapon.SetActive(true);
+			_attackTime = Time.time;
 		}
 	
+		if (weapon.activeSelf == true && _attackTime < Time.time - _attackLength)
+		{
+			weapon.SetActive(false);
+		}
+		
+		
 		
 
 		// apply horizontal speed smoothing it
@@ -165,11 +174,6 @@ public class CharacterInputController : MonoBehaviour
 		
 	}
 
-	void AttackAnimationEnded()
-	{
-		_animator.SetBool( "attacking", false );
-		GameObject hitbox = transform.FindChild("hitbox").gameObject;
-		hitbox.SetActive(false);
-	}
+	
 
 }
