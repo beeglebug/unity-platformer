@@ -5,6 +5,9 @@ public class Health : MonoBehaviour {
 
 	public int max = 100;
 	public int current;
+	public bool invulnerable = false;
+	private float _invulnerableLength = 1.0f;
+	private float _invulnerableTime;
 	
 	void Awake() {
 	
@@ -12,17 +15,24 @@ public class Health : MonoBehaviour {
 	
 	}
 	
-	void OnGUI()
+	void Update()
 	{
-		//GUI.backgroundColor = Color.red;
-			
-		//GUI.Label (new Rect (10,10,200,100), "Health: " + current);
-		
+		// reset invulnerability
+		if(invulnerable && _invulnerableTime < Time.time - _invulnerableLength)
+		{
+			invulnerable = false;
+		}
+	
 	}
 	
-	public void Reduce(int amount)
+	public void TakeDamage(Hazard source)
 	{
-		current -= amount;
+		if(invulnerable) { return; }
+		
+		current -= source.damage;
+		
+		invulnerable = true;
+		_invulnerableTime = Time.time;
 		
 		if(current <= 0) {
 			Destroy(this.gameObject);

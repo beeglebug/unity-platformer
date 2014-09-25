@@ -11,13 +11,22 @@ public class Hazard : MonoBehaviour {
 	
 	public void OnTriggerEnter2D(Collider2D collider)
 	{
+		CauseDamage(collider);
+	}
+	
+	public void OnTriggerStay2D(Collider2D collider)
+	{
+		CauseDamage(collider);
+	}
+
+	public void CauseDamage(Collider2D collider)
+	{
 		if(collider.gameObject.HasComponent<Health>()) {
 			
 			Health health = collider.gameObject.GetComponent<Health>();
 			
-			health.Reduce(damage);
+			health.TakeDamage(this);
 		}
 	}
-	
-	
+
 }

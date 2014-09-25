@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
 		// cache stuff
 		player = GameObject.Find("player");
 		
-		player.transform.position = new Vector3(20,-8,0);
+		player.transform.position = new Vector3(40,-13,0);
 		
 		// load the first level
 		Application.LoadLevel (initialScene);

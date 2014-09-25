@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--Tiled2Unity generated xml data-->
+<!--Do not modify by hand-->
+<!--Last exported: 25/09/2014 13:22:39-->
+<Tiled2Unity version="0.9.5.3">
+  <AssignMaterial mesh="mesh_[00]_[00]" material="new-tiles" sortingLayerName="" sortingOrder="0" alphaColorKey="#5e81a2" />
+  <Prefab name="spikes" scale="0.0625">
+    <GameObject name="spikes_00" layer="spikes">
+      <GameObject copy="mesh_[00]_[00]" />
+      <GameObject name="Collision">
+        <EdgeCollider2D>
+          <Points>32,-7 0,-7</Points>
+        </EdgeCollider2D>
+      </GameObject>
+    </GameObject>
+  </Prefab>
+  <ImportMesh filename="spikes.obj">IyBXYXZlZnJvbnQgT0JKIGZpbGUgYXV0b21hdGljYWxseSBnZW5lcmF0ZWQgYnkgVGlsZWQyVW5pdHkNCg0KIyBWZXJ0aWNlcyAoQ291bnQgPSA2KQ0KdiAwIC0xNiAwDQp2IC0xNiAtMTYgMA0KdiAtMTYgMCAwDQp2IDAgMCAwDQp2IC0zMiAtMTYgMA0KdiAtMzIgMCAwDQoNCiMgVGV4dHVyZSBDb29yaW5kYXRlcyAoQ291bnQgPSA0KQ0KdnQgMC4wMDAxMjIwNzAzIDAuNTYyNjIyMQ0KdnQgMC4wNjI1IDAuNTYyNjIyMQ0KdnQgMC4wNjI1IDAuNjI1DQp2dCAwLjAwMDEyMjA3MDMgMC42MjUNCg0KIyBOb3JtYWwNCnZuIDAgMCAtMQ0KDQojIEdyb3VwcyAoQ291bnQgPSAxKQ0KZyBtZXNoX1swMF1fWzAwXQ0KZiAgMS8xLzEgIDIvMi8xICAzLzMvMSAgNC80LzEgDQpmICAyLzEvMSAgNS8yLzEgIDYvMy8xICAzLzQvMSANCg==</ImportMesh>
+  <InternalTexture assetPath="Assets\images\new-tiles.png" />
+</Tiled2Unity>
